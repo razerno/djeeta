@@ -1,0 +1,24 @@
+{
+  "name": "djeeta",
+  "version": "1.0.0",
+  "description": "A simple Discord chatbot.",
+  "main": "app.js",
+  "dependencies": {
+    "discord.js": "^11.1.0",
+    "ytdl-core": "^0.14.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/razerno/djeeta.git"
+  },
+  "author": "Razerno",
+  "private": true,
+  "bugs": {
+    "url": "https://github.com/razerno/djeeta/issues"
+  },
+  "homepage": "https://github.com/razerno/djeeta#readme"
+}
