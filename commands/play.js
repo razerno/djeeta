@@ -20,5 +20,6 @@ exports.run = (client, message, params) => {
 
 exports.help = {
   name: 'play',
-  description: 'Play music from a youtube link.'
+  description: 'Plays music from a youtube link.',
+  usage: 'play [youtube url]'
 };

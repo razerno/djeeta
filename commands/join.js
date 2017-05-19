@@ -12,5 +12,6 @@ exports.run = (client, message, params) => {
 
 exports.help = {
   name: 'join',
-  description: 'Join a voice channel.'
+  description: 'Joins the voice channel you are currently in.',
+  usage: 'join'
 };

@@ -4,5 +4,6 @@ exports.run = (client, message, params) => {
 
 exports.help = {
   name: 'ping',
-  description: 'A simple ping/pong call and response command.'
+  description: 'A simple ping/pong call and response command.',
+  usage: 'ping'
 };

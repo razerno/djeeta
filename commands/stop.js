@@ -9,5 +9,6 @@ exports.run = (client, message, params) => {
 
 exports.help = {
   name: 'stop',
-  description: 'Stop playing music.'
+  description: 'Stops playing music.',
+  usage: 'stop'
 };
