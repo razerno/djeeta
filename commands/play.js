@@ -47,7 +47,13 @@ exports.run = (client, message, params) => {
   }
 }
 
-function addListener(channel, guildId, connection, dispatcher) {
+exports.help = {
+  name: 'play',
+  description: 'Plays music from a youtube link.',
+  usage: 'play [youtube url]'
+}
+
+addListener = (channel, guildId, connection, dispatcher) => {
   dispatcher.on('end', message => {
     if (message != 'stop') {
       const info = player.next(guildId);
@@ -61,8 +67,4 @@ function addListener(channel, guildId, connection, dispatcher) {
   });
 }
 
-exports.help = {
-  name: 'play',
-  description: 'Plays music from a youtube link.',
-  usage: 'play [youtube url]'
-}
+exports.addListener = addListener;

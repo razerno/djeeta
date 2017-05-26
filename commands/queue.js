@@ -21,6 +21,6 @@ exports.run = (client, message, params) => {
 
 exports.help = {
   name: 'queue',
-  description: 'Add a youtube link to the music queue.',
+  description: 'Adds a youtube link to the music queue.',
   usage: 'queue [youtube url]'
 }
