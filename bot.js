@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const config = require('./config.json');
+const config = require('./config.js');
 const fs = require('fs');
 
 client.on('ready', () => {
@@ -9,11 +9,11 @@ client.on('ready', () => {
 
 client.commands = new Discord.Collection();
 
-fs.readdir('./commands/', (err, files) => {
+fs.readdir('./server/commands/', (err, files) => {
   if (err) console.error(err);
   console.log(`Loading ${files.length} commands.`);
   files.forEach(f => {
-    let command = require(`./commands/${f}`);
+    let command = require(`./server/commands/${f}`);
     console.log(`Loading command ${command.help.name}.`);
     client.commands.set(command.help.name, command);
   });
