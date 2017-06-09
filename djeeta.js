@@ -1,2 +1,2 @@
 require('./bot.js');
-require('./client.js');
+require('./server.js');

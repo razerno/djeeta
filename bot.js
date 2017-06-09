@@ -46,8 +46,11 @@ client.login(config.token);
 function gracefulQuit() {
   console.log( "\nGracefully shutting down." );
   client.destroy();
-  process.exit( );
+  process.exit();
 }
 
 process.on('SIGINT', () => gracefulQuit());
 process.on('SIGTERM', () => gracefulQuit());
+
+exports.client = client;
+exports.config = config;

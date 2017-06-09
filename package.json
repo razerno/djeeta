@@ -11,6 +11,7 @@
     "react-dom": "^15.5.4",
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
+    "socket.io": "^2.0.2",
     "ytdl-core": "^0.14.0"
   },
   "devDependencies": {

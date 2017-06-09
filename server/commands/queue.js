@@ -1,6 +1,8 @@
 const player = require('../models/player.js');
 const ytdl = require('ytdl-core');
 
+const io = require('../../sio').io();
+
 exports.run = (client, message, params) => {
   let guildId = message.member.guild.id;
   if (client.voiceConnections.has(guildId)) {
@@ -8,6 +10,10 @@ exports.run = (client, message, params) => {
     const info = ytdl.getInfo(params[0])
       .then(info => {
         player.queue(guildId, info);
+        console.log('emitting queue event');
+        const eName = 'playlist:' + guildId;
+        io.to(eName).emit('queue');
+        console.log('sent queue event to room: ' + eName);
         message.channel.send(`Queued: *${info.title}*`);
       })
       .catch(err => {

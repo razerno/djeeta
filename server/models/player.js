@@ -40,3 +40,7 @@ exports.stop = (id) => {
 exports.list = (id) => {
   return queue.get(id);
 }
+
+exports.listAll = () => {
+  return queue.keyArray();
+}
