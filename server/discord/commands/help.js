@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const config = require('../../config.js');
+const config = require('../config.js');
 
 exports.run = (client, message, params) => {
   if (params[0]) {

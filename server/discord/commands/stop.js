@@ -1,14 +1,15 @@
-const player = require('../models/player.js');
+const player = require('../../models/player.js');
 
 exports.run = (client, message, params) => {
   let guildId = message.member.guild.id;
   if (client.voiceConnections.has(guildId)) {
     let connection = client.voiceConnections.get(guildId);
     if (connection.dispatcher) {
-      connection.dispatcher.pause();
-      message.channel.send('Paused playing music.');
+      connection.dispatcher.end('stop');
+      player.stop(guildId);
+      message.channel.send('Stopped playing music.');
     } else {
-      message.channel.send("I'm not playing anything right now.")
+      message.channel.send("I'm not playing anything right now.");
     }
   } else {
     message.channel.send("I'm not even in a voice channel!");
@@ -16,7 +17,7 @@ exports.run = (client, message, params) => {
 }
 
 exports.help = {
-  name: 'pause',
-  description: 'Pauses playing music.',
-  usage: 'pause'
+  name: 'stop',
+  description: 'Stops playing music.',
+  usage: 'stop'
 }

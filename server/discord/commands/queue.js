@@ -1,6 +1,6 @@
-const player = require('../models/player.js');
+const player = require('../../models/player.js');
 const ytdl = require('ytdl-core');
-const socket = require('../../sio');
+const socket = require('../../../sio');
 
 exports.run = (client, message, params) => {
   let guildId = message.member.guild.id;

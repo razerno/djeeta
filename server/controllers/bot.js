@@ -1,4 +1,4 @@
-const bot = require('../../bot');
+const bot = require('../discord/bot');
 
 exports.commands = (req, res) => {
   const commands = bot.client.commands.map(command => command.help);

@@ -1,4 +1,4 @@
-const player = require('../models/player.js');
+const player = require('../../models/player.js');
 
 exports.run = (client, message, params) => {
   if (message.member.voiceChannel) {

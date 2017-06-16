@@ -1,4 +1,4 @@
-const player = require('../models/player.js');
+const player = require('../../models/player.js');
 const ytdl = require('ytdl-core');
 const play = require('./play.js');
 
