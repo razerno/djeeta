@@ -7,7 +7,7 @@ class Playlist extends React.Component {
         <h3>Server id: {this.props.id}</h3>
         <ul>
           {this.props.queue.map(info => {
-            return <li>{info.title}<br/>{info.url}<br/>{info.image}</li>
+            return <li key={info.id}>{info.title}<br/>{info.url}<br/>{info.image}</li>
           })}
         </ul>
       </div>

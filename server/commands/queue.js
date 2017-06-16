@@ -1,7 +1,6 @@
 const player = require('../models/player.js');
 const ytdl = require('ytdl-core');
-
-const io = require('../../sio').io();
+const socket = require('../../sio');
 
 exports.run = (client, message, params) => {
   let guildId = message.member.guild.id;
@@ -12,7 +11,7 @@ exports.run = (client, message, params) => {
         player.queue(guildId, info);
         console.log('emitting queue event');
         const eName = 'playlist:' + guildId;
-        io.to(eName).emit('queue');
+        socket.io().to(eName).emit('queue');
         console.log('sent queue event to room: ' + eName);
         message.channel.send(`Queued: *${info.title}*`);
       })

@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-const player_controller = require('../controllers/player');
+const playerController = require('../controllers/player');
 
-router.get('/', player_controller.index);
-router.get('/playlist/:id', player_controller.playlist);
+router.get('/', playerController.index);
+router.get('/playlist/:id', playerController.playlist);
+router.post('/playlist/:id', playerController.addSong);
 
 module.exports = router;

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Playlist from './playlist'
+import AddLink from './addlink'
 
 const io = require('socket.io-client')
 const socket = io()
@@ -19,13 +20,13 @@ class ServerList extends React.Component {
   fetchPlaylist(id) {
     console.log('Fetching playlist ' + id);
     fetch(`/player/playlist/${id}`)
-      .then(res => res.json())
-      .then(data => {
-        this.setState({
-          currentId: id,
-          selectedPlaylist: data,
-        });
+    .then(res => res.json())
+    .then(data => {
+      this.setState({
+        currentId: id,
+        selectedPlaylist: data,
       });
+    });
     socket.on('queue', () => {
       console.log('sio: Received queue event');
       this.fetchPlaylist(id);
@@ -37,16 +38,31 @@ class ServerList extends React.Component {
     this.fetchPlaylist(event.target.value);
   }
 
-  renderPlaylist() {
+  renderComponents() {
     if (this.state.currentId != '') {
       return (
-        <Playlist id={this.state.selectedPlaylist.id} queue={this.state.selectedPlaylist.queue} />
+        <div>
+        {this.renderPlaylist()}
+        {this.renderAddLink()}
+        </div>
       );
     } else {
       return (
         'No server selected.'
       );
     }
+  }
+
+  renderPlaylist() {
+    return (
+      <Playlist id={this.state.selectedPlaylist.id} queue={this.state.selectedPlaylist.queue} />
+    )
+  }
+
+  renderAddLink() {
+    return (
+      <AddLink id={this.state.selectedPlaylist.id} />
+    )
   }
 
   render() {
@@ -65,7 +81,7 @@ class ServerList extends React.Component {
             </select>
           </label>
         </form>
-        {this.renderPlaylist()}
+        {this.renderComponents()}
       </div>
     );
   }

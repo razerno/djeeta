@@ -13,10 +13,10 @@ class Player extends React.Component {
   fetchAllServers() {
     console.log('Fetching all servers');
     fetch('/player')
-      .then(res => res.json())
-      .then(data => {
-        this.setState({servers: data.servers});
-      });
+    .then(res => res.json())
+    .then(data => {
+      this.setState({servers: data.servers});
+    });
   }
 
   componentDidMount() {

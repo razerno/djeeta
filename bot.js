@@ -41,6 +41,10 @@ client.on('message', (message) => {
 
 });
 
+client.on('error', (err) => {
+  console.log('Error: ' + err);
+})
+
 client.login(config.token);
 
 function gracefulQuit() {
