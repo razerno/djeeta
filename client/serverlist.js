@@ -27,6 +27,7 @@ class ServerList extends React.Component {
         selectedPlaylist: data,
       });
     });
+    socket.off('queue');
     socket.on('queue', () => {
       console.log('sio: Received queue event');
       this.fetchPlaylist(id);

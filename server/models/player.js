@@ -4,8 +4,6 @@ const shortid = require('shortid');
 queue = new Discord.Collection();
 current = new Discord.Collection();
 
-exports.streamOptions = { seek: 0, volume: 1 };
-
 exports.create = (id) => {
   if (!queue.has(id)) {
     console.log('Instantiating queue.');
@@ -50,10 +48,10 @@ exports.has = (id) => {
   return queue.has(id);
 }
 
-exports.list = (id) => {
+exports.getQueue = (id) => {
   return queue.get(id);
 }
 
-exports.listAll = () => {
+exports.getKeys = () => {
   return queue.keyArray();
 }

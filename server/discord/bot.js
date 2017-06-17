@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
+const Player = require('./player');
 const config = require('./config');
 const fs = require('fs');
 
@@ -7,6 +8,7 @@ client.on('ready', () => {
   console.log('I am ready!');
 });
 
+client.player = new Player(client, require('../models/player'));
 client.commands = new Discord.Collection();
 
 fs.readdir('./server/discord/commands/', (err, files) => {
