@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
-import { commands } from './bot';
+import { commands, prefix } from './bot';
 
 export default combineReducers({
-  commands
+  commands,
+  prefix
 })
