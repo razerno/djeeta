@@ -1,13 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { fetchCommands } from '../actions/bot'
 
 class Commands extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      commands: [],
-    }
-  }
-
   fetchPrefix() {
     fetch('/bot/prefix')
       .then(res => res.json())
@@ -16,24 +11,16 @@ class Commands extends React.Component {
       });
   }
 
-  fetchCommands() {
-    fetch('/bot/commands')
-      .then(res => res.json())
-      .then(data => {
-        this.setState(data);
-      });
-  }
-
   componentDidMount() {
     this.fetchPrefix();
-    this.fetchCommands();
+    this.props.fetchCommands();
   }
 
   render() {
     return (
       <table>
         <tbody>
-          {this.state.commands.map(command => {
+          {this.props.commands.map(command => {
             return (
               <tr key={command.name}>
                 <td>{this.state.prefix + command.name}</td>
@@ -48,4 +35,16 @@ class Commands extends React.Component {
   }
 }
 
-export default Commands;
+const mapStateToProps = state => {
+  return {
+    commands: state.commands
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchCommands: () => dispatch(fetchCommands())
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Commands);
