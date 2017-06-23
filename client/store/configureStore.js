@@ -3,10 +3,10 @@ import thunkMiddleware from 'redux-thunk';
 import { apiMiddleware } from 'redux-api-middleware';
 import rootReducer from '../reducers';
 
-const configureStore = initialState => {
+const configureStore = preloadedState => {
   return createStore(
     rootReducer,
-    initialState,
+    preloadedState,
     applyMiddleware(thunkMiddleware, apiMiddleware)
   );
 }

@@ -5,7 +5,7 @@ export const COMMANDS_SUCCESS = 'COMMANDS_SUCCESS';
 export const COMMANDS_FAILURE = 'COMMANDS_FAILURE';
 
 export const fetchCommands = () => {
-  return (dispatch) => {
+  return dispatch => {
     dispatch({
       [CALL_API]: {
         endpoint: '/bot/commands',

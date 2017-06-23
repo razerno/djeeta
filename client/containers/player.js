@@ -1,36 +1,25 @@
 import React from 'react';
-
-import ServerList from './serverlist'
+import { connect } from 'react-redux';
+import { fetchServers } from '../actions/player'
+import ServerSelect from './serverselect'
+import PlaylistControl from './playlistcontrol'
 
 class Player extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      servers: [],
-    };
-  }
-
-  fetchAllServers() {
-    console.log('Fetching all servers');
-    fetch('/player')
-    .then(res => res.json())
-    .then(data => {
-      this.setState({servers: data.servers});
-    });
-  }
-
   componentDidMount() {
-    this.fetchAllServers();
+    this.props.fetchServers();
   }
 
   handleClick() {
-    this.fetchAllServers();
+    this.props.fetchServers();
   }
 
-  renderServerList() {
-    if (this.state.servers.length > 0) {
+  renderComponents() {
+    if (this.props.servers.length > 0) {
       return (
-        <ServerList servers={this.state.servers} />
+        <div>
+          <ServerSelect />
+          <PlaylistControl />
+        </div>
       );
     } else {
       return (
@@ -45,10 +34,22 @@ class Player extends React.Component {
         <h2>Player</h2>
         <button onClick={() => this.handleClick()}>Update</button>
         <br/>
-        {this.renderServerList()}
+        {this.renderComponents()}
       </div>
     );
   }
 }
 
-export default Player;
+const mapStateToProps = state => {
+  return {
+    servers: state.servers,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchServers: () => dispatch(fetchServers()),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Player);
