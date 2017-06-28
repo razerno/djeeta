@@ -1,16 +1,26 @@
 import React from 'react';
+import { ListGroup, ListGroupItem, Media } from 'react-bootstrap';
 
 class Playlist extends React.Component {
   render() {
     return (
-      <div>
-        <h3>Server id: {this.props.id}</h3>
-        <ul>
-          {this.props.queue.map(info => {
-            return <li key={info.id}>{info.title}<br/>{info.url}<br/>{info.image}</li>
-          })}
-        </ul>
-      </div>
+      <ListGroup>
+        {this.props.queue.map(info => {
+          return (
+            <ListGroupItem key={info.id}>
+              <Media>
+                <Media.Left>
+                  <img height={100} src={info.image} alt="Image"/>
+                </Media.Left>
+                <Media.Body>
+                  <Media.Heading>{info.title}</Media.Heading>
+                  {info.url}
+                </Media.Body>
+              </Media>
+            </ListGroupItem>
+          )
+        })}
+      </ListGroup>
     );
   }
 }

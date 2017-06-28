@@ -1,18 +1,14 @@
 import React from 'react';
+import Header from './header';
+import Content from './content';
 
-import Commands from './commands';
-import Player from './player';
-
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <h1>Djeeta</h1>
-        <Commands />
-        <Player />
-      </div>
-    );
-  }
+const App = props => {
+  return (
+    <div>
+      <Header />
+      <Content />
+    </div>
+  )
 }
 
 export default App;

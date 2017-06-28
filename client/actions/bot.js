@@ -28,6 +28,6 @@ export const fetchPrefix = () => {
         method: 'GET',
         types: [ PREFIX_REQUEST, PREFIX_SUCCESS, PREFIX_FAILURE ],
       }
-    })
+    });
   }
 }

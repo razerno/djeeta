@@ -1,16 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Playlist from './playlist'
-import AddLink from './addlink'
+import { Panel } from 'react-bootstrap';
+import Playlist from './playlist';
+import AddLink from './addlink';
 
 class PlaylistControl extends React.Component {
   renderComponents() {
     if (this.props.playlist) {
       return (
-        <div>
+        <Panel>
           <Playlist id={this.props.playlist.id} queue={this.props.playlist.queue} />
           <AddLink id= {this.props.playlist.id} />
-        </div>
+        </Panel>
       );
     } else {
       return (

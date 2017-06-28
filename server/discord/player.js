@@ -16,6 +16,7 @@ class Player {
   play(guildId, channel) {
     if (this.client.voiceConnections.has(guildId)) {
       let connection = this.client.voiceConnections.get(guildId);
+
       if (connection.dispatcher) {
         if (connection.dispatcher.paused) {
           connection.dispatcher.resume();
@@ -25,9 +26,13 @@ class Player {
         }
       } else {
         const info = this.model.next(guildId);
+
         if (info) {
           const stream = ytdl.downloadFromInfo(info, {filter: 'audioonly'});
+
           this.model.play(guildId, info);
+          this.updateSocket(guildId);
+
           const dispatcher = connection.playStream(stream, streamOptions);
           this.addListener(guildId, connection, dispatcher, channel);
           if (channel) channel.send(`Playing: *${info.title}*`);
@@ -43,8 +48,10 @@ class Player {
   pause(guildId, channel) {
     if (this.client.voiceConnections.has(guildId)) {
       let connection = this.client.voiceConnections.get(guildId);
+
       if (connection.dispatcher) {
         connection.dispatcher.pause();
+
         if (channel) channel.send('Paused playing music.');
       } else {
         if (channel) channel.send("I'm not playing anything right now.");
@@ -57,9 +64,13 @@ class Player {
   stop(guildId, channel) {
     if (this.client.voiceConnections.has(guildId)) {
       let connection = this.client.voiceConnections.get(guildId);
+
       if (connection.dispatcher) {
         connection.dispatcher.end('stop');
+
         this.model.stop(guildId);
+        this.updateSocket(guildId);
+
         if (channel) channel.send('Stopped playing music.');
       } else {
         if (channel) channel.send("I'm not playing anything right now.");
@@ -72,12 +83,17 @@ class Player {
   skip(guildId, channel) {
     if (this.client.voiceConnections.has(guildId)) {
       let connection = this.client.voiceConnections.get(guildId);
+
       if (connection.dispatcher) {
         const info = this.model.next(guildId);
+
         if (info) {
           connection.dispatcher.end('stop');
           const stream = ytdl.downloadFromInfo(info, {filter: 'audioonly'});
+
           this.model.play(guildId, info);
+          this.updateSocket(guildId);
+
           const dispatcher = connection.playStream(stream, streamOptions);
           this.addListener(guildId, connection, dispatcher, channel);
           if (channel) channel.send(`Playing: *${info.title}*`);
@@ -95,13 +111,17 @@ class Player {
   playSong(guildId, link, channel) {
     if (this.client.voiceConnections.has(guildId)) {
       let connection = this.client.voiceConnections.get(guildId);
+
       const info = ytdl.getInfo(link)
         .then(info => {
           const stream = ytdl.downloadFromInfo(info, {filter: 'audioonly'});
           if (connection.dispatcher) {
             connection.dispatcher.end('stop');
           }
+
           this.model.play(guildId, info);
+          this.updateSocket(guildId);
+
           const dispatcher = connection.playStream(stream, streamOptions);
           this.addListener(guildId, connection, dispatcher, channel);
           if (channel) channel.send(`Playing: *${info.title}*`);
@@ -118,19 +138,40 @@ class Player {
   queueSong(guildId, link, channel) {
     if (this.client.voiceConnections.has(guildId)) {
       let connection = this.client.voiceConnections.get(guildId);
+
       const info = ytdl.getInfo(link)
         .then(info => {
           this.model.queue(guildId, info);
-          console.log('emitting queue event');
-          const eName = 'playlist:' + guildId;
-          socket.io().to(eName).emit('queue');
-          console.log('sent queue event to room: ' + eName);
+          this.updateSocket(guildId);
+
           if (channel) channel.send(`Queued: *${info.title}*`);
         })
         .catch(err => {
           console.log(err);
           if (channel) channel.send("That's not a valid youtube link!");
         });
+    } else {
+      if (channel) channel.send("I'm not in a voice channel. Use !join to have me join the voice channel you're in.");
+    }
+  }
+
+  moveSong(guildId, songId, position, channel) {
+    if (this.client.voiceConnections.has(guildId)) {
+      this.model.move(guildId, songId, position);
+      this.updateSocket(guildId);
+
+      if (channel) channel.send(`Moved ${songId} to position ${position}`);
+    } else {
+      if (channel) channel.send("I'm not in a voice channel. Use !join to have me join the voice channel you're in.");
+    }
+  }
+
+  deleteSong(guildId, songId, channel) {
+    if (this.client.voiceConnections.has(guildId)) {
+      this.model.delete(guildId, songId);
+      this.updateSocket(guildId);
+
+      if (channel) channel.send(`Deleted ${songId}`);
     } else {
       if (channel) channel.send("I'm not in a voice channel. Use !join to have me join the voice channel you're in.");
     }
@@ -156,6 +197,12 @@ class Player {
         }
       }
     });
+  }
+
+  updateSocket(guildId) {
+    const eName = 'playlist:' + guildId;
+    socket.io().to(eName).emit('update');
+    console.log('Emitted update event to ' + eName);
   }
 }
 

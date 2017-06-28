@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { addSong } from '../actions/player';
+import { Form, FormControl, Button } from 'react-bootstrap';
 
 class AddLink extends React.Component {
   constructor() {
@@ -17,37 +20,25 @@ class AddLink extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.fetchAddSong(this.props.id, this.state.url);
-  }
-
-  fetchAddSong(id, url) {
-    console.log('Adding link ' + url);
-    fetch(`/player/playlist/${id}`, {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-      body: JSON.stringify({id: id, url: url}),
-    })
-    .then(res => res.text())
-    .then(text => {
-      alert(text);
-      // alert(JSON.stringify(data));
-    });
+    this.props.addSong(this.props.id, this.state.url);
   }
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Url:
-          <input type="text" value={this.state.url} onChange={this.handleChange} />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
+      <Form inline onSubmit={this.handleSubmit}>
+        <FormControl type="text" value={this.state.url} onChange={this.handleChange} />
+        <Button type="submit">
+          Add Song
+        </Button>
+      </Form>
     );
   }
 }
 
-export default AddLink;
+const mapDispatchToProps = dispatch => {
+  return {
+    addSong: (id, url) => dispatch(addSong(id, url)),
+  };
+}
+
+export default connect(undefined, mapDispatchToProps)(AddLink);

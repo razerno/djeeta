@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchServers } from '../actions/player'
-import ServerSelect from './serverselect'
-import PlaylistControl from './playlistcontrol'
+import { fetchServers } from '../actions/player';
+import { Button } from 'react-bootstrap';
+import ServerSelect from './serverselect';
+import PlaylistControl from './playlistcontrol';
 
 class Player extends React.Component {
   componentDidMount() {
@@ -31,8 +32,7 @@ class Player extends React.Component {
   render() {
     return (
       <div>
-        <h2>Player</h2>
-        <button onClick={() => this.handleClick()}>Update</button>
+        <Button bsSize="large" onClick={() => this.handleClick()}>Update</Button>
         <br/>
         {this.renderComponents()}
       </div>

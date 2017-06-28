@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchCommands, fetchPrefix } from '../actions/bot'
+import { fetchCommands, fetchPrefix } from '../actions/bot';
+import { Table } from 'react-bootstrap';
 
 class Commands extends React.Component {
   componentDidMount() {
@@ -10,7 +11,14 @@ class Commands extends React.Component {
 
   render() {
     return (
-      <table>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Usage</th>
+          </tr>
+        </thead>
         <tbody>
           {this.props.commands.map(command => {
             return (
@@ -22,7 +30,7 @@ class Commands extends React.Component {
             )
           })}
         </tbody>
-      </table>
+      </Table>
     );
   }
 }
