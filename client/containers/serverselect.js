@@ -34,7 +34,7 @@ class ServerSelect extends React.Component {
           <ControlLabel>Select server:</ControlLabel>
           <FormControl componentClass="select" value={this.props.selectedServer} onChange={this.handleChange}>
             <option value='0' disabled hidden></option>
-            {this.props.servers.map(server => {
+            {this.props.servers.ids.map(server => {
               return (
                 <option key={server} value={server}>{server}</option>
               );

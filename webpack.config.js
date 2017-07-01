@@ -8,7 +8,8 @@ const config = {
   },
   module: {
     rules: [
-      {test: /\.(js|jsx)$/, use: 'babel-loader', exclude: /node_modules/}
+      {test: /\.(js|jsx)$/, use: 'babel-loader', exclude: /node_modules/},
+      {test: /\.css$/, loader: 'style-loader!css-loader'}
     ]
   }
 };

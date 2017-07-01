@@ -190,6 +190,7 @@ class Player {
       if (message != 'stop') {
         const info = this.model.next(guildId);
         if (info) {
+          this.updateSocket(guildId);
           const stream = ytdl.downloadFromInfo(info, {filter: 'audioonly'});
           const nextDispatcher = connection.playStream(stream, streamOptions);
           this.addListener(guildId, connection, nextDispatcher, channel);

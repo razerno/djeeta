@@ -15,7 +15,11 @@ class Player extends React.Component {
   }
 
   renderComponents() {
-    if (this.props.servers.length > 0) {
+    if (this.props.servers.isFetching) {
+      return (
+        'Loading...'
+      );
+    } else if (this.props.servers.ids.length > 0) {
       return (
         <div>
           <ServerSelect />
