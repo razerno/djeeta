@@ -47,7 +47,7 @@ exports.stop = (id) => {
 
 exports.move = (id, songId, newIndex) => {
   if (queue.has(id)) {
-    const oldIndex = queue.get(id).findIndex(element => {const {sid, info} = element; sid == songId})
+    const oldIndex = queue.get(id).findIndex(element => {const {sid, info} = element; return sid == songId})
     if (oldIndex != -1) {
       console.log('Moving song position');
       queue.get(id).move(oldIndex, newIndex);
@@ -57,7 +57,7 @@ exports.move = (id, songId, newIndex) => {
 
 exports.delete = (id, songId) => {
   if (queue.has(id)) {
-    const index = queue.get(id).findIndex(element => {const {sid, info} = element; sid == songId})
+    const index = queue.get(id).findIndex(element => {const {sid, info} = element; return sid == songId})
     if (index != -1) {
       console.log('Deleting song');
       queue.get(id).splice(index, 1);
