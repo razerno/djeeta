@@ -1,0 +1,67 @@
+body {
+  color: #fff;
+  background-color: #1e2124;
+}
+
+body, h1, h2 {
+  font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+
+/* Jumbotron */
+
+.jumbotron {
+  background-color: #2f3136;
+}
+
+.jumbotron p {
+  color: hsla(0,0%,100%,.6);
+  font-size: 18px;
+}
+
+/* Table */
+
+.table {
+  color: hsla(0,0%,100%,.6);
+  background-color: #2f3136;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+  background-color: rgba(32,34,37,.3);
+ }
+
+.table-bordered, table-bordered>thead>tr>th, .table-bordered>thead>tr>th, table-bordered>tbody>tr>th, .table-bordered>tbody>tr>th, table-bordered>tfoot>tr>th, .table-bordered>tfoot>tr>th, table-bordered>thead>tr>td, .table-bordered>thead>tr>td, table-bordered>tbody>tr>td, .table-bordered>tbody>tr>td, table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>td {
+  border: 1px solid #1e2124;
+}
+
+.table-hover>tbody>tr:hover {
+  background-color: #36393e;
+}
+
+/* Panel */
+
+.panel {
+  background-color: #2f3136;
+  border: 0px;
+  box-shadow: 0 1px 10px 0 rgba(0,0,0,.1);
+}
+
+.panel-default {
+  position: relative;
+}
+
+.panel-body {
+  border-radius: inherit;
+}
+
+/* Label */
+
+.label-default {
+  background-color: #7289da;
+}
+
+.label {
+  padding: .1em .3em .1em;
+  border-radius: .15em;
+  font-size: 75%;
+}

@@ -11,3 +11,9 @@ exports.prefix = (req, res) => {
 
   res.json({ prefix: prefix });
 }
+
+exports.avatar = (req, res) => {
+  const avatarUrl = bot.client.user.avatarURL;
+
+  res.json({ url: avatarUrl });
+}

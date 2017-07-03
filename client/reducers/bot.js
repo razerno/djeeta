@@ -19,3 +19,13 @@ export const prefix = (state = '', action) => {
       return state;
   }
 }
+
+export const avatar = (state = '', action) => {
+  switch (action.type) {
+    case Action.AVATAR_SUCCESS:
+      return action.payload.url;
+
+    default:
+      return state;
+  }
+}

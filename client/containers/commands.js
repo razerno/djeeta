@@ -12,13 +12,6 @@ class Commands extends React.Component {
   render() {
     return (
       <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Usage</th>
-          </tr>
-        </thead>
         <tbody>
           {this.props.commands.map(command => {
             return (

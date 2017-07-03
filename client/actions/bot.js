@@ -31,3 +31,19 @@ export const fetchPrefix = () => {
     });
   }
 }
+
+export const AVATAR_REQUEST = 'AVATAR_REQUEST';
+export const AVATAR_SUCCESS = 'AVATAR_SUCCESS';
+export const AVATAR_FAILURE = 'AVATAR_FAILURE';
+
+export const fetchAvatar = () => {
+  return dispatch => {
+    dispatch({
+      [CALL_API]: {
+        endpoint: '/bot/avatar',
+        method: 'GET',
+        types: [ AVATAR_REQUEST, AVATAR_SUCCESS, AVATAR_FAILURE ],
+      }
+    });
+  }
+}
