@@ -1,8 +1,15 @@
 import React from 'react';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
-import { Media } from 'react-bootstrap';
+import { Media, OverlayTrigger, Popover, Button } from 'react-bootstrap';
+import { MdClear } from 'react-icons/lib/md';
 
-const Song = SortableElement(({info}) => {
+const DeleteSongConfirm = (onDelete) => (
+  <Popover id="remove-song-confirm">
+    <Button bsStyle="danger" onClick={onDelete}>Delete</Button>
+  </Popover>
+);
+
+const Song = SortableElement(({info, onDelete}) => {
   return (
     <li style={{marginBottom: '15px'}}>
       <Media>
@@ -19,16 +26,21 @@ const Song = SortableElement(({info}) => {
           <Media.Heading>{info.title}</Media.Heading>
           {info.url}
         </Media.Body>
+        <Media.Right align="middle">
+          <OverlayTrigger trigger="click" rootClose placement="top" overlay={DeleteSongConfirm(() => onDelete(info.id))}>
+            <MdClear />
+          </OverlayTrigger>
+        </Media.Right>
       </Media>
     </li>
   );
 });
 
-const Playlist = SortableContainer(({queue}) => {
+const Playlist = SortableContainer(({queue, onDelete}) => {
   return (
     <ul>
       {queue.map((info, index) => (
-        <Song key={info.id} index={index} info={info} />
+        <Song key={info.id} index={index} info={info} onDelete={onDelete} />
       ))}
     </ul>
   );
