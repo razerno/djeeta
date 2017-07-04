@@ -36,7 +36,7 @@ class Player extends React.Component {
   render() {
     return (
       <div>
-        <Button bsSize="large" onClick={() => this.handleClick()}>Update</Button>
+        <Button bsStyle="primary" onClick={() => this.handleClick()}>Update</Button>
         <br/>
         {this.renderComponents()}
       </div>

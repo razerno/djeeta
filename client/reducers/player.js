@@ -43,7 +43,6 @@ export const playlistIsFetching = (state = false, action) => {
   switch (action.type) {
     case Action.PLAYLIST_REQUEST:
     case Action.ADD_SONG_REQUEST:
-    case Action.MOVE_SONG_REQUEST:
     case Action.DELETE_SONG_REQUEST:
       return true;
 
@@ -52,7 +51,6 @@ export const playlistIsFetching = (state = false, action) => {
 
     case Action.PLAYLIST_FAILURE:
     case Action.ADD_SONG_FAILURE:
-    case Action.MOVE_SONG_FAILURE:
     case Action.DELETE_SONG_REQUEST:
       return false;
 

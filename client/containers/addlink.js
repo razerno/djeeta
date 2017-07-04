@@ -25,9 +25,9 @@ class AddLink extends React.Component {
 
   render() {
     return (
-      <Form inline onSubmit={this.handleSubmit}>
-        <FormControl type="text" value={this.state.url} onChange={this.handleChange} />
-        <Button type="submit">
+      <Form inline onSubmit={this.handleSubmit} style={{display: 'flex', justifyContent: 'flex-end'}}>
+        <FormControl type="text" size="50" value={this.state.url} onChange={this.handleChange} />
+        <Button type="submit" bsStyle="primary">
           Add Song
         </Button>
       </Form>

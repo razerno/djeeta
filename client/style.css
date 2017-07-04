@@ -7,6 +7,14 @@ body, h1, h2 {
   font-family: 'Segoe UI', Roboto, sans-serif;
 }
 
+ul {
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+li {
+  display: block;
+}
 
 /* Jumbotron */
 
@@ -41,8 +49,9 @@ body, h1, h2 {
 /* Panel */
 
 .panel {
-  background-color: #2f3136;
+  background-color: #2b2c31;
   border: 0px;
+  border-radius: 0px;
   box-shadow: 0 1px 10px 0 rgba(0,0,0,.1);
 }
 
@@ -64,4 +73,74 @@ body, h1, h2 {
   padding: .1em .3em .1em;
   border-radius: .15em;
   font-size: 75%;
+}
+
+/* Media */
+
+.media {
+  margin-top: 0;
+  margin-bottom: 0;
+  background-color: rgba(50, 52, 56, 0.6);
+  /*border-radius: 5px;*/
+  /*box-shadow: 0 1px 10px 0 rgba(0,0,0,.1);*/
+}
+
+.media-body {
+  padding: 10px;
+  color: hsla(0,0%,100%,.6);
+}
+
+.media-left {
+  padding: 0px;
+}
+
+.media-heading {
+  font-weight: normal;
+  font-size: 14px;
+  color: hsla(0,0%,100%,.8);
+}
+
+/* Form */
+
+.form-control {
+  width: auto;
+  border: none;
+  color: inherit;
+  background-color: #2f3136;
+}
+
+.form-control:focus {
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0px 0px 4px rgba(255, 255, 255, 0.6)
+}
+
+.btn {
+  height: 34px;
+  border: none;
+  border-radius: 0;
+}
+
+.btn-primary, .btn-primary:active, .btn-primary:focus, .btn-primary:active:focus {
+  background-color: #7289da;
+}
+
+.btn-primary:hover, .btn-primary:active:hover, .btn-primary:focus:hover {
+  background-color: #697ec4;
+}
+
+/* Loading */
+
+@keyframes loading-fade-in {
+  0% {
+      opacity: 0;
+  }
+  50% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 0.5;
+  }
+}
+
+.loading-fade-in {
+  animation: loading-fade-in 0.5s;
 }

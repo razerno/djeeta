@@ -4,10 +4,16 @@ import { Media } from 'react-bootstrap';
 
 const Song = SortableElement(({info}) => {
   return (
-    <li className='list-group-item'>
+    <li style={{marginBottom: '15px'}}>
       <Media>
         <Media.Left>
-          <img height={100} src={info.image} alt="Image"/>
+          <div style={{
+            width: '160px',
+            height: '90px',
+            backgroundImage: `url(${info.image})`,
+            backgroundPosition: 'center',
+            backgroundSize: 'cover'
+          }} />
         </Media.Left>
         <Media.Body>
           <Media.Heading>{info.title}</Media.Heading>
@@ -20,7 +26,7 @@ const Song = SortableElement(({info}) => {
 
 const Playlist = SortableContainer(({queue}) => {
   return (
-    <ul className='list-group'>
+    <ul>
       {queue.map((info, index) => (
         <Song key={info.id} index={index} info={info} />
       ))}

@@ -4,7 +4,7 @@ import Spinner from 'react-spinkit';
 const Loading = props => {
   return (
     <div style={{borderRadius: 'inherit'}}>
-      {props.condition && <div style={{
+      {props.condition && <div className="loading-fade-in" style={{
         backgroundColor: '#000',
         opacity: 0.5,
         position: 'absolute',
@@ -20,7 +20,7 @@ const Loading = props => {
         alignItems: 'center',
         borderRadius: 'inherit'
       }}>
-        <Spinner name="circle" fadeIn='quarter' color="white" style={{width: '35px', height: '35px'}}/>
+        <Spinner name="circle" fadeIn="quarter" color="white" style={{width: '35px', height: '35px'}}/>
       </div>}
     </div>
   )
