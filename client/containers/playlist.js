@@ -14,7 +14,7 @@ const Song = SortableElement(({info, onDelete}) => {
     <li style={{marginBottom: '15px'}}>
       <Media>
         <Media.Left>
-          <div style={{
+          <div className="hidden-xs" style={{
             width: '160px',
             height: '90px',
             backgroundImage: `url(${info.image})`,

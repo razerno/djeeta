@@ -112,8 +112,8 @@ li {
 /* Form */
 
 .form-control {
-  width: auto;
   border: none;
+  border-radius: 0;
   color: inherit;
   background-color: #2f3136;
 }

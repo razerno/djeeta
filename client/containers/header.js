@@ -13,13 +13,13 @@ class Header extends React.Component {
       <Jumbotron>
         <Grid>
           <Row style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-            <Col xs={3} smHidden mdHidden lgHidden style={{display: 'flex', justifyContent: 'flex-end'}}>
+            <Col xs={3} smHidden mdHidden lgHidden style={{paddingRight: '0', marginLeft: '15px', display: 'flex', justifyContent: 'flex-end'}}>
               <Image src={this.props.avatar} circle style={{width: '85px', height: '85px'}} />
             </Col>
             <Col xsHidden sm={3} style={{display: 'flex', justifyContent: 'flex-end'}}>
               <Image src={this.props.avatar} circle style={{width: '165px', height: '165px'}} />
             </Col>
-            <Col xs={9}>
+            <Col xs={12} sm={9}>
               <Row>
                 <Col xs={12}>
                   <h1>Djeeta <Label>BOT</Label></h1>

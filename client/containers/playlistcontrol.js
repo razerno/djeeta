@@ -23,12 +23,18 @@ class PlaylistControl extends React.Component {
     this.props.deleteSong(this.props.playlist.id, songId);
   }
 
+  shouldCancelStart(e) {
+    if (e.target.tagName.toLowerCase() === 'svg') {
+      return true;
+    }
+  }
+
   renderComponents() {
     if (this.props.playlist) {
       return (
         <Panel style={{position: 'relative'}}>
           <Loading condition={this.props.playlistIsFetching}/>
-          <Playlist queue={this.props.playlist.queue} distance={2} onSortEnd={this.onSortEnd} onDelete={this.onDelete} />
+          <Playlist queue={this.props.playlist.queue} pressDelay={50} onSortEnd={this.onSortEnd} shouldCancelStart={this.shouldCancelStart} onDelete={this.onDelete} />
           <AddLink id= {this.props.playlist.id} />
         </Panel>
       );
