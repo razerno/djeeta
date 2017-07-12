@@ -2,6 +2,7 @@ import React from 'react';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import { Media, OverlayTrigger, Popover, Button } from 'react-bootstrap';
 import { MdClear } from 'react-icons/lib/md';
+import { secondsToHMS } from '../utils';
 
 const DeleteSongConfirm = (onDelete) => (
   <Popover id="remove-song-confirm">
@@ -24,7 +25,7 @@ const Song = SortableElement(({info, onDelete}) => {
         </Media.Left>
         <Media.Body>
           <Media.Heading>{info.title}</Media.Heading>
-          {info.url}
+          {secondsToHMS(info.length)}
         </Media.Body>
         <Media.Right align="middle">
           <OverlayTrigger trigger="click" rootClose placement="top" overlay={DeleteSongConfirm(() => onDelete(info.id))}>

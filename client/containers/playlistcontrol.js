@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { moveSong, deleteSong } from '../actions/player';
 import { Panel } from 'react-bootstrap';
 import Loading from '../components/loading';
+import NowPlaying from './nowplaying';
 import Playlist from './playlist';
 import AddLink from './addlink';
 
@@ -34,6 +35,7 @@ class PlaylistControl extends React.Component {
       return (
         <Panel style={{position: 'relative'}}>
           <Loading condition={this.props.playlistIsFetching}/>
+          {this.props.playlist.nowPlaying && <NowPlaying info={this.props.playlist.nowPlaying} />}
           <Playlist queue={this.props.playlist.queue} pressDelay={50} onSortEnd={this.onSortEnd} shouldCancelStart={this.shouldCancelStart} onDelete={this.onDelete} />
           <AddLink id= {this.props.playlist.id} />
         </Panel>

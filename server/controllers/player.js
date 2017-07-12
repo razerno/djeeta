@@ -7,18 +7,35 @@ exports.index = (req, res) => {
 }
 
 exports.getPlaylist = (req, res) => {
+  let nowPlaying;
+  const npInfo = bot.client.player.getNowPlaying(req.params.id);
+  if (npInfo) {
+    const {sid, info} = npInfo;
+    nowPlaying = {id: sid, title: info.title, url: info.video_url, image: info.iurlhq, length: info.length_seconds};
+  }
   const queue = bot.client.player.getQueue(req.params.id).map(infomap => {
     const {sid, info} = infomap;
-    return {id: sid, title: info.title, url: info.video_url, image: info.iurlhq};
+    return {id: sid, title: info.title, url: info.video_url, image: info.iurlhq, length: info.length_seconds};
   });
 
-  res.json({ id: req.params.id, queue: queue });
+  res.json({ id: req.params.id, nowPlaying: nowPlaying, queue: queue });
+}
+
+exports.getNowPlaying = (req, res) => {
+  let nowPlaying;
+  const npInfo = bot.client.player.getNowPlaying(req.params.id);
+  if (npInfo) {
+    const {sid, info} = npInfo;
+    nowPlaying = {id: sid, title: info.title, url: info.video_url, image: info.iurlhq, length: info.length_seconds};
+  }
+
+  res.json({ nowPlaying: nowPlaying });
 }
 
 exports.getQueue = (req, res) => {
   const queue = bot.client.player.getQueue(req.params.id).map(infomap => {
     const {sid, info} = infomap;
-    return {id: sid, title: info.title, url: info.video_url, image: info.iurlhq};
+    return {id: sid, title: info.title, url: info.video_url, image: info.iurlhq, length: info.length_seconds};
   });
 
   res.json({ queue: queue });

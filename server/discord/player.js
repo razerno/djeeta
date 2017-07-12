@@ -26,12 +26,10 @@ class Player {
         }
       } else {
         const info = this.model.next(guildId);
+        this.updateSocket(guildId);
 
         if (info) {
           const stream = ytdl.downloadFromInfo(info, {filter: 'audioonly'});
-
-          this.model.play(guildId, info);
-          this.updateSocket(guildId);
 
           const dispatcher = connection.playStream(stream, streamOptions);
           this.addListener(guildId, connection, dispatcher, channel);
@@ -86,13 +84,11 @@ class Player {
 
       if (connection.dispatcher) {
         const info = this.model.next(guildId);
+        this.updateSocket(guildId);
 
         if (info) {
           connection.dispatcher.end('stop');
           const stream = ytdl.downloadFromInfo(info, {filter: 'audioonly'});
-
-          this.model.play(guildId, info);
-          this.updateSocket(guildId);
 
           const dispatcher = connection.playStream(stream, streamOptions);
           this.addListener(guildId, connection, dispatcher, channel);
@@ -177,6 +173,10 @@ class Player {
     }
   }
 
+  getNowPlaying(guildId) {
+    return this.model.getCurrent(guildId);
+  }
+
   getQueue(guildId) {
     return this.model.getQueue(guildId);
   }
@@ -189,8 +189,8 @@ class Player {
     dispatcher.on('end', message => {
       if (message != 'stop') {
         const info = this.model.next(guildId);
+        this.updateSocket(guildId);
         if (info) {
-          this.updateSocket(guildId);
           const stream = ytdl.downloadFromInfo(info, {filter: 'audioonly'});
           const nextDispatcher = connection.playStream(stream, streamOptions);
           this.addListener(guildId, connection, nextDispatcher, channel);
