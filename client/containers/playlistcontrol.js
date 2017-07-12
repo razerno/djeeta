@@ -30,7 +30,7 @@ class PlaylistControl extends React.Component {
   }
 
   renderComponents() {
-    if (this.props.playlist) {
+    if (this.props.playlist.id) {
       return (
         <Panel style={{position: 'relative'}}>
           <Loading condition={this.props.playlistIsFetching}/>
@@ -56,8 +56,8 @@ class PlaylistControl extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    playlist: state.playlist[state.selectedServer],
-    playlistIsFetching: state.playlistIsFetching,
+    playlist: state.playlist.current,
+    playlistIsFetching: state.playlist.isFetching,
   }
 }
 

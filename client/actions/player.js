@@ -76,7 +76,14 @@ export const moveSong = (id, songId, newIndex) => {
       [CALL_API]: {
         endpoint: `/player/playlist/${id}/items/${songId}/move`,
         method: 'POST',
-        types: [ MOVE_SONG_REQUEST, MOVE_SONG_SUCCESS, MOVE_SONG_FAILURE ],
+        types: [
+          {
+            type: MOVE_SONG_REQUEST,
+            meta: { songId: songId, newIndex: newIndex },
+          },
+          MOVE_SONG_SUCCESS,
+          MOVE_SONG_FAILURE
+        ],
         headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',

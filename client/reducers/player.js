@@ -1,4 +1,5 @@
-import * as Action from '../actions/player'
+import * as Action from '../actions/player';
+import { arrayMove } from 'react-sortable-hoc';
 
 export const servers = (state = {
   isFetching: false,
@@ -29,30 +30,58 @@ export const servers = (state = {
   }
 }
 
-export const playlist = (state = {}, action) => {
-  switch (action.type) {
-    case Action.PLAYLIST_SUCCESS:
-      return Object.assign({}, state, { [action.meta.id]: action.payload });
-
-    default:
-      return state;
-  }
-}
-
-export const playlistIsFetching = (state = false, action) => {
+export const playlist = (state = {
+  isFetching: false,
+  isMoving: false,
+  beforeMove: {},
+  current: {},
+}, action) => {
   switch (action.type) {
     case Action.PLAYLIST_REQUEST:
     case Action.ADD_SONG_REQUEST:
     case Action.DELETE_SONG_REQUEST:
-      return true;
+      return {
+        ...state,
+        isFetching: true,
+      }
+
+    case Action.MOVE_SONG_REQUEST:
+      const oldIndex = state.current.queue.findIndex(element => {return element.id == action.meta.songId});
+      return {
+        ...state,
+        isMoving: true,
+        beforeMove: state.current,
+        current: { id: state.current.id, queue: arrayMove(state.current.queue, oldIndex, action.meta.newIndex) }
+      }
 
     case Action.PLAYLIST_SUCCESS:
-      return false;
+      return {
+        ...state,
+        isFetching: false,
+        isMoving: false,
+        beforeMove: {},
+        current: action.payload,
+      }
 
     case Action.PLAYLIST_FAILURE:
     case Action.ADD_SONG_FAILURE:
-    case Action.DELETE_SONG_REQUEST:
-      return false;
+    case Action.DELETE_SONG_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+      }
+
+    case Action.MOVE_SONG_FAILURE:
+      if (state.isMoving) {
+        return {
+          ...state,
+          isMoving: false,
+          beforeMove: {},
+          current: state.beforeMove,
+        }
+      } else {
+        return state;
+      }
 
     default:
       return state;
