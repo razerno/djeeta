@@ -26,7 +26,7 @@ client.on('message', (message) => {
   if (message.author.bot) return;
 
   // Commands to be restricted to botchannel
-  if (message.channel.name != 'botchannel') return;
+  if (config.channel && message.channel.name != config.channel) return;
 
   if (message.content.startsWith(config.prefix)) {
     let cmdName = message.content.split(' ')[0].slice(config.prefix.length);
