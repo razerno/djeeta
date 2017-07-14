@@ -1,15 +1,6 @@
 exports.run = (client, message, params) => {
-  if (message.member.voiceChannel) {
-    let guildId = message.member.guild.id;
-    message.member.voiceChannel.join()
-      .then(connection => {
-        client.player.create(guildId);
-        message.channel.send(`Successfully connected to ${connection.channel.name}.`);
-      })
-      .catch(console.log);
-  } else {
-    message.channel.send('You need to join a voice channel first!');
-  }
+  let guildId = message.member.guild.id;
+  client.player.join(guildId, message.member.voiceChannel, message.channel);
 }
 
 exports.help = {

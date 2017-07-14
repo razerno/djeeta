@@ -12,6 +12,14 @@ exports.create = (id) => {
   }
 }
 
+exports.delete = (id) => {
+  if (queue.has(id)) {
+    console.log('Removing queue.');
+    queue.delete(id);
+    current.delete(id);
+  }
+}
+
 exports.play = (id, info) => {
   console.log(`Playing: *${info.title}*`);
   current.set(id, info);

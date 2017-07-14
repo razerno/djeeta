@@ -9,8 +9,28 @@ class Player {
     this.model = model;
   }
 
-  create(guildId) {
-    this.model.create(guildId);
+  join(guildId, voiceChannel, channel) {
+    if (voiceChannel) {
+      voiceChannel.join()
+        .then(connection => {
+          this.model.create(guildId);
+          if (channel) channel.send(`Successfully connected to ${connection.channel.name}.`);
+        })
+        .catch(console.log);
+    } else {
+      if (channel) channel.send('You need to join a voice channel first!');
+    }
+  }
+
+  leave(guildId, channel) {
+    if (this.client.voiceConnections.has(guildId)) {
+      let connection = this.client.voiceConnections.get(guildId);
+      connection.channel.leave();
+      this.model.delete(guildId)
+      if (channel) channel.send('Successfully left the channel.');
+    } else {
+      if (channel) channel.send("I'm already not in a voice channel!");
+    }
   }
 
   play(guildId, channel) {
