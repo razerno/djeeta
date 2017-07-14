@@ -90,9 +90,11 @@ class Player {
           connection.dispatcher.end('stop');
           const stream = ytdl.downloadFromInfo(info, {filter: 'audioonly'});
 
-          const dispatcher = connection.playStream(stream, streamOptions);
-          this.addListener(guildId, connection, dispatcher, channel);
-          if (channel) channel.send(`Playing: *${info.title}*`);
+          setTimeout(() => {
+            const dispatcher = connection.playStream(stream, streamOptions);
+            this.addListener(guildId, connection, dispatcher, channel);
+            if (channel) channel.send(`Playing: *${info.title}*`);
+          }, 500);
         } else {
           if (channel) channel.send("There's nothing in queue.");
         }
@@ -118,9 +120,11 @@ class Player {
           this.model.play(guildId, info);
           this.updateSocket(guildId);
 
-          const dispatcher = connection.playStream(stream, streamOptions);
-          this.addListener(guildId, connection, dispatcher, channel);
-          if (channel) channel.send(`Playing: *${info.title}*`);
+          setTimeout(() => {
+            const dispatcher = connection.playStream(stream, streamOptions);
+            this.addListener(guildId, connection, dispatcher, channel);
+            if (channel) channel.send(`Playing: *${info.title}*`);
+          }, 500);
         })
         .catch(err => {
           console.log(err);
@@ -192,9 +196,11 @@ class Player {
         this.updateSocket(guildId);
         if (info) {
           const stream = ytdl.downloadFromInfo(info, {filter: 'audioonly'});
-          const nextDispatcher = connection.playStream(stream, streamOptions);
-          this.addListener(guildId, connection, nextDispatcher, channel);
-          if (channel) channel.send(`Playing: *${info.title}*`);
+          setTimeout(() => {
+            const nextDispatcher = connection.playStream(stream, streamOptions);
+            this.addListener(guildId, connection, nextDispatcher, channel);
+            if (channel) channel.send(`Playing: *${info.title}*`);
+          }, 500);
         }
       }
     });
