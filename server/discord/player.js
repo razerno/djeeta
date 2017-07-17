@@ -26,7 +26,7 @@ class Player {
     if (this.client.voiceConnections.has(guildId)) {
       let connection = this.client.voiceConnections.get(guildId);
       connection.channel.leave();
-      this.model.delete(guildId)
+      this.model.destroy(guildId)
       if (channel) channel.send('Successfully left the channel.');
     } else {
       if (channel) channel.send("I'm already not in a voice channel!");

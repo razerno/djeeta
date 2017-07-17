@@ -10,8 +10,7 @@ exports.getPlaylist = (req, res) => {
   let nowPlaying;
   const npInfo = bot.client.player.getNowPlaying(req.params.id);
   if (npInfo) {
-    const {sid, info} = npInfo;
-    nowPlaying = {id: sid, title: info.title, url: info.video_url, image: info.iurlhq, length: info.length_seconds};
+    nowPlaying = {title: npInfo.title, url: npInfo.video_url, image: npInfo.iurlhq, length: npInfo.length_seconds};
   }
   const queue = bot.client.player.getQueue(req.params.id).map(infomap => {
     const {sid, info} = infomap;

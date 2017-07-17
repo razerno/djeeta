@@ -12,7 +12,7 @@ exports.create = (id) => {
   }
 }
 
-exports.delete = (id) => {
+exports.destroy = (id) => {
   if (queue.has(id)) {
     console.log('Removing queue.');
     queue.delete(id);
@@ -42,10 +42,11 @@ exports.next = (id) => {
   if (queue.has(id) && queue.get(id).length > 0) {
     console.log('Queue exists and is not empty');
     const {sid, info} = queue.get(id).shift();
-    current.set(id, {sid, info});
+    current.set(id, info);
     return info;
   } else {
     console.log('Nothing in queue.');
+    current.delete(id);
   }
 }
 
