@@ -1,8 +1,13 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
+
+// Add status command to TextChannel to become in line with HTTP Responses
+Discord.TextChannel.prototype.status = function (code) {return this;};
 const Player = require('./player');
+
 const config = require('./config');
 const fs = require('fs');
+
 
 client.on('ready', () => {
   console.log('I am ready!');

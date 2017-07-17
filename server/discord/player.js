@@ -18,7 +18,7 @@ class Player {
         })
         .catch(console.log);
     } else {
-      if (channel) channel.send('You need to join a voice channel first!');
+      if (channel) channel.status(400).send('You need to join a voice channel first!');
     }
   }
 
@@ -29,7 +29,7 @@ class Player {
       this.model.destroy(guildId)
       if (channel) channel.send('Successfully left the channel.');
     } else {
-      if (channel) channel.send("I'm already not in a voice channel!");
+      if (channel) channel.status(400).send("I'm already not in a voice channel!");
     }
   }
 
@@ -42,7 +42,7 @@ class Player {
           connection.dispatcher.resume();
           if (channel) channel.send('Resuming music playback.');
         } else {
-          if (channel) channel.send("I'm already playing!");
+          if (channel) channel.status(400).send("I'm already playing!");
         }
       } else {
         const info = this.model.next(guildId);
@@ -55,11 +55,11 @@ class Player {
           this.addListener(guildId, connection, dispatcher, channel);
           if (channel) channel.send(`Playing: *${info.title}*`);
         } else {
-          if (channel) channel.send("There's nothing in queue.");
+          if (channel) channel.status(400).send("There's nothing in queue.");
         }
       }
     } else {
-      if (channel) channel.send("I'm not in a voice channel. Use !join to have me join the voice channel you're in.");
+      if (channel) channel.status(400).send("I'm not in a voice channel. Use !join to have me join the voice channel you're in.");
     }
   }
 
@@ -72,10 +72,10 @@ class Player {
 
         if (channel) channel.send('Paused playing music.');
       } else {
-        if (channel) channel.send("I'm not playing anything right now.");
+        if (channel) channel.status(400).send("I'm not playing anything right now.");
       }
     } else {
-      if (channel) channel.send("I'm not even in a voice channel!");
+      if (channel) channel.status(400).send("I'm not even in a voice channel!");
     }
   }
 
@@ -91,10 +91,10 @@ class Player {
 
         if (channel) channel.send('Stopped playing music.');
       } else {
-        if (channel) channel.send("I'm not playing anything right now.");
+        if (channel) channel.status(400).send("I'm not playing anything right now.");
       }
     } else {
-      if (channel) channel.send("I'm not even in a voice channel!");
+      if (channel) channel.status(400).send("I'm not even in a voice channel!");
     }
   }
 
@@ -116,13 +116,13 @@ class Player {
             if (channel) channel.send(`Playing: *${info.title}*`);
           }, 500);
         } else {
-          if (channel) channel.send("There's nothing in queue.");
+          if (channel) channel.status(400).send("There's nothing in queue.");
         }
       } else {
-        if (channel) channel.send("I'm not playing anything right now.");
+        if (channel) channel.status(400).send("I'm not playing anything right now.");
       }
     } else {
-      if (channel) channel.send("I'm not in a voice channel. Use !join to have me join the voice channel you're in.");
+      if (channel) channel.status(400).send("I'm not in a voice channel. Use !join to have me join the voice channel you're in.");
     }
   }
 
@@ -148,10 +148,10 @@ class Player {
         })
         .catch(err => {
           console.log(err);
-          if (channel) channel.send("That's not a valid youtube link!");
+          if (channel) channel.status(400).send("That's not a valid youtube link!");
         });
     } else {
-      if (channel) channel.send("I'm not in a voice channel. Use !join to have me join the voice channel you're in.");
+      if (channel) channel.status(400).send("I'm not in a voice channel. Use !join to have me join the voice channel you're in.");
     }
   }
 
@@ -168,10 +168,10 @@ class Player {
         })
         .catch(err => {
           console.log(err);
-          if (channel) channel.send("That's not a valid youtube link!");
+          if (channel) channel.status(400).send("That's not a valid youtube link!");
         });
     } else {
-      if (channel) channel.send("I'm not in a voice channel. Use !join to have me join the voice channel you're in.");
+      if (channel) channel.status(400).send("I'm not in a voice channel. Use !join to have me join the voice channel you're in.");
     }
   }
 
@@ -182,7 +182,7 @@ class Player {
 
       if (channel) channel.send(`Moved ${songId} to position ${position}`);
     } else {
-      if (channel) channel.send("I'm not in a voice channel. Use !join to have me join the voice channel you're in.");
+      if (channel) channel.status(400).send("I'm not in a voice channel. Use !join to have me join the voice channel you're in.");
     }
   }
 
@@ -193,7 +193,7 @@ class Player {
 
       if (channel) channel.send(`Deleted ${songId}`);
     } else {
-      if (channel) channel.send("I'm not in a voice channel. Use !join to have me join the voice channel you're in.");
+      if (channel) channel.status(400).send("I'm not in a voice channel. Use !join to have me join the voice channel you're in.");
     }
   }
 
