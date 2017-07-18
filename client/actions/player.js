@@ -1,4 +1,4 @@
-import { CALL_API } from 'redux-api-middleware'
+import { CALL_API } from 'redux-api-middleware';
 
 export const SERVERS_REQUEST = 'SERVERS_REQUEST';
 export const SERVERS_SUCCESS = 'SERVERS_SUCCESS';
@@ -6,7 +6,7 @@ export const SERVERS_FAILURE = 'SERVERS_FAILURE';
 
 export const fetchServers = () => {
   return dispatch => {
-    dispatch({
+    return dispatch({
       [CALL_API]: {
         endpoint: '/player',
         method: 'GET',
@@ -22,7 +22,7 @@ export const PLAYLIST_FAILURE = 'PLAYLIST_FAILURE';
 
 export const fetchPlaylist = id => {
   return dispatch => {
-    dispatch({
+    return dispatch({
       [CALL_API]: {
         endpoint: `/player/playlist/${id}`,
         method: 'GET',
@@ -51,7 +51,7 @@ export const ADD_SONG_FAILURE = 'ADD_SONG_FAILURE';
 
 export const addSong = (id, url) => {
   return dispatch => {
-    dispatch({
+    return dispatch({
       [CALL_API]: {
         endpoint: `/player/playlist/${id}/items`,
         method: 'POST',
@@ -72,7 +72,7 @@ export const MOVE_SONG_FAILURE = 'MOVE_SONG_FAILURE';
 
 export const moveSong = (id, songId, newIndex) => {
   return dispatch => {
-    dispatch({
+    return dispatch({
       [CALL_API]: {
         endpoint: `/player/playlist/${id}/items/${songId}/move`,
         method: 'POST',
@@ -100,7 +100,7 @@ export const DELETE_SONG_FAILURE = 'DELETE_SONG_FAILURE';
 
 export const deleteSong = (id, songId) => {
   return dispatch => {
-    dispatch({
+    return dispatch({
       [CALL_API]: {
         endpoint: `/player/playlist/${id}/items/${songId}`,
         method: 'DELETE',

@@ -6,7 +6,7 @@ export const COMMANDS_FAILURE = 'COMMANDS_FAILURE';
 
 export const fetchCommands = () => {
   return dispatch => {
-    dispatch({
+    return dispatch({
       [CALL_API]: {
         endpoint: '/bot/commands',
         method: 'GET',
@@ -22,7 +22,7 @@ export const PREFIX_FAILURE = 'PREFIX_FAILURE';
 
 export const fetchPrefix = () => {
   return dispatch => {
-    dispatch({
+    return dispatch({
       [CALL_API]: {
         endpoint: '/bot/prefix',
         method: 'GET',
@@ -38,7 +38,7 @@ export const AVATAR_FAILURE = 'AVATAR_FAILURE';
 
 export const fetchAvatar = () => {
   return dispatch => {
-    dispatch({
+    return dispatch({
       [CALL_API]: {
         endpoint: '/bot/avatar',
         method: 'GET',

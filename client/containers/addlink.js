@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addSong } from '../actions/player';
+import { toastr } from 'react-redux-toastr'
+import { addSong, ADD_SONG_SUCCESS, ADD_SONG_FAILURE } from '../actions/player';
 import { Form, FormControl, Button } from 'react-bootstrap';
 
 class AddLink extends React.Component {
@@ -20,7 +21,19 @@ class AddLink extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.addSong(this.props.id, this.state.url);
+    this.props.addSong(this.props.id, this.state.url)
+    .then(actionResponse => {
+      switch (actionResponse.type) {
+        case ADD_SONG_SUCCESS:
+          toastr.success("Song successfully added.");
+          this.setState({ url: '' });
+          break;
+
+        case ADD_SONG_FAILURE:
+          toastr.error("That isn't a valid youtube video.");
+          break;
+      }
+    });
   }
 
   render() {
