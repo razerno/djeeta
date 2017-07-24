@@ -3,7 +3,7 @@ import { arrayMove } from 'react-sortable-hoc';
 
 export const servers = (state = {
   isFetching: false,
-  ids: [],
+  list: [],
 }, action) => {
   switch (action.type) {
     case Action.SERVERS_REQUEST:
@@ -16,7 +16,7 @@ export const servers = (state = {
       return {
         ...state,
         isFetching: false,
-        ids: action.payload.servers,
+        list: action.payload.servers,
       };
 
     case Action.SERVERS_FAILURE:
@@ -52,6 +52,19 @@ export const playlist = (state = {
         isMoving: true,
         beforeMove: state.current,
         current: { id: state.current.id, queue: arrayMove(state.current.queue, oldIndex, action.meta.newIndex) }
+      }
+
+    case Action.SERVERS_SUCCESS:
+      if (action.payload.servers.find(server => {return server.id == state.current.id})) {
+        return state;
+      } else {
+        return {
+          ...state,
+          isFetching: false,
+          isMoving: false,
+          beforeMove: {},
+          current: {},
+        };
       }
 
     case Action.PLAYLIST_SUCCESS:
@@ -92,6 +105,13 @@ export const selectedServer = (state = 0, action) => {
   switch (action.type) {
     case Action.SELECT_SERVER:
       return action.id;
+
+    case Action.SERVERS_SUCCESS:
+      if (action.payload.servers.find(server => {return server.id == state})) {
+        return state;
+      } else {
+        return 0;
+      }
 
     default:
       return state;

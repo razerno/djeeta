@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchPlaylist, selectServer } from '../actions/player';
-import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { fetchServers, fetchPlaylist, selectServer } from '../actions/player';
+import { Form, FormControl, Button } from 'react-bootstrap';
+import Spinner from 'react-spinkit';
+import { MdRefresh } from 'react-icons/lib/md';
 
 const io = require('socket.io-client')
-const socket = io()
 
 class ServerSelect extends React.Component {
   constructor(props) {
@@ -12,37 +13,63 @@ class ServerSelect extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  componentDidMount() {
+    this.socket = io()
+  }
+
+  handleClick() {
+    this.props.fetchServers();
+  }
+
   handleChange(event) {
     const id = event.target.value;
 
-    socket.emit('playlist', id);
+    this.socket.emit('playlist', id);
 
     this.props.fetchPlaylist(id);
     this.props.selectServer(id);
 
-    socket.off('update');
-    socket.on('update', () => {
-      console.log('sio: Received queue event');
+    this.socket.off('update');
+    this.socket.on('update', () => {
       this.props.fetchPlaylist(id);
     });
   }
 
+  renderUpdateButton() {
+    if (this.props.servers.isFetching) {
+      return (
+        <Button bsStyle="primary" onClick={() => this.handleClick()}><Spinner name="circle" fadeIn="none" color="white"/></Button>
+      )
+    } else {
+      return (
+        <Button bsStyle="primary" onClick={() => this.handleClick()}><MdRefresh style={{ width: '22px', height: '22px' }}/></Button>
+      )
+    }
+  }
+
   render() {
-    return (
-      <form>
-        <FormGroup>
-          <ControlLabel>Select server:</ControlLabel>
-          <FormControl componentClass="select" value={this.props.selectedServer} onChange={this.handleChange}>
-            <option value='0' disabled hidden></option>
-            {this.props.servers.ids.map(server => {
+    if (this.props.servers.list.length > 0) {
+      return (
+        <Form inline>
+          <FormControl componentClass="select" value={this.props.selectedServer} onChange={this.handleChange} style={{ width: 'auto' }}>
+            <option value='0' disabled hidden>Select server</option>
+            {this.props.servers.list.map(server => {
               return (
-                <option key={server} value={server}>{server}</option>
+                <option key={server.id} value={server.id}>{server.name}</option>
               );
             })}
           </FormControl>
-        </FormGroup>
-      </form>
-    );
+          {this.renderUpdateButton()}
+        </Form>
+      );
+    } else {
+      return (
+        <Form inline>
+          <FormControl type="text" value="No servers available." readOnly style={{ width: 'auto' }} />
+          {this.renderUpdateButton()}
+        </Form>
+      )
+    }
   }
 }
 
@@ -55,6 +82,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    fetchServers: () => dispatch(fetchServers()),
     fetchPlaylist: id => dispatch(fetchPlaylist(id)),
     selectServer: id => dispatch(selectServer(id)),
   };

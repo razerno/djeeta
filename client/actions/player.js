@@ -11,6 +11,7 @@ export const fetchServers = () => {
         endpoint: '/player',
         method: 'GET',
         types: [ SERVERS_REQUEST, SERVERS_SUCCESS, SERVERS_FAILURE ],
+        credentials: 'same-origin',
       }
     });
   }
@@ -34,6 +35,7 @@ export const fetchPlaylist = id => {
           },
           PLAYLIST_FAILURE
         ],
+        credentials: 'same-origin',
       }
     });
   }
@@ -61,6 +63,7 @@ export const addSong = (id, url) => {
         'Content-Type': 'application/json',
         },
         body: JSON.stringify({url: url}),
+        credentials: 'same-origin',
       }
     });
   }
@@ -89,6 +92,7 @@ export const moveSong = (id, songId, newIndex) => {
         'Content-Type': 'application/json',
         },
         body: JSON.stringify({newindex: newIndex}),
+        credentials: 'same-origin',
       }
     });
   }
@@ -105,7 +109,8 @@ export const deleteSong = (id, songId) => {
         endpoint: `/player/playlist/${id}/items/${songId}`,
         method: 'DELETE',
         types: [ DELETE_SONG_REQUEST, DELETE_SONG_SUCCESS, DELETE_SONG_FAILURE ],
+        credentials: 'same-origin',
       }
-    })
+    });
   }
 }

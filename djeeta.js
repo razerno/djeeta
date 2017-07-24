@@ -1,26 +1,41 @@
+require('css-modules-require-hook')({
+    generateScopedName: '[name]__[local]___[hash:base64:5]',
+    extensions: ['.scss', '.css'],
+});
+require('babel-register')();
+
 const express = require('express');
 const bodyParser = require('body-parser');
+const cookieSession = require('cookie-session');
 const app = express();
 const path = require('path');
 const bot = require('./server/discord/bot');
+const serverRender = require('./server-render');
 
 // Include routes
-const player_route = require('./server/routes/player');
-const bot_route = require('./server/routes/bot');
+const playerRoute = require('./server/routes/player');
+const botRoute = require('./server/routes/bot');
+const authRoute = require('./server/routes/auth');
 
 // Configure express to user body-parser
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// Configure express to use cookie-session
+app.use(cookieSession({
+  name: 'session',
+  keys: [ 'as428dfs8340' ],
+  maxAge: 60 * 24 * 60 * 60 * 1000 // 60 days
+}));
+
 // Expose static site and register api routes
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/player', player_route);
-app.use('/bot', bot_route);
+app.use('/player', playerRoute);
+app.use('/bot', botRoute);
+app.use('/auth', authRoute);
 
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'public/index.html'));
-});
+app.use(serverRender.handleRender);
 
 const server = app.listen(3000, () => {
   console.log('Djeeta listening on port 3000!')

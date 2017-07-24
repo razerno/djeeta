@@ -16,6 +16,27 @@ li {
   display: block;
 }
 
+/* Navbar */
+
+.nav>li>a {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.navbar {
+  background-color: #1e2124;
+  margin-bottom: 0;
+  border: none;
+}
+
+.dropdown-menu {
+  border: none;
+  border-radius: 0;
+  min-width: 0;
+  background-color: rgba(50, 52, 56, 0.6);
+  color: #fff;
+}
+
 /* Jumbotron */
 
 .jumbotron {
@@ -115,6 +136,11 @@ li {
   border: none;
   border-radius: 0;
   color: inherit;
+  background-color: #2f3136;
+}
+
+.form-control[readonly] {
+  color: hsla(0,0%,100%,.6);
   background-color: #2f3136;
 }
 

@@ -15,29 +15,28 @@ class Player extends React.Component {
   }
 
   renderComponents() {
-    if (this.props.servers.isFetching) {
+    if (!this.props.hasAuthToken) {
       return (
-        'Loading...'
-      );
-    } else if (this.props.servers.ids.length > 0) {
+        <center>You must be logged in to control the music player.</center>
+      )
+    } else if (this.props.servers.list.length > 0) {
       return (
         <div>
-          <ServerSelect />
+          <center><ServerSelect /></center>
+          <br/>
           <PlaylistControl />
         </div>
       );
     } else {
       return (
-        'No servers available.'
+        <center><ServerSelect /></center>
       );
     }
   }
 
   render() {
     return (
-      <div>
-        <Button bsStyle="primary" onClick={() => this.handleClick()}>Update</Button>
-        <br/>
+      <div style={{ minHeight: '150px' }}>
         {this.renderComponents()}
       </div>
     );
@@ -47,6 +46,7 @@ class Player extends React.Component {
 const mapStateToProps = state => {
   return {
     servers: state.servers,
+    hasAuthToken: state.auth.hasAuthToken,
   }
 }
 

@@ -2,8 +2,8 @@ const Discord = require('discord.js');
 const shortid = require('shortid');
 require('array.prototype.move');
 
-queue = new Discord.Collection();
-current = new Discord.Collection();
+const queue = new Discord.Collection();
+const current = new Discord.Collection();
 
 exports.create = (id) => {
   if (!queue.has(id)) {

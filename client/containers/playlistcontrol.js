@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { moveSong, deleteSong } from '../actions/player';
+import { moveSong, deleteSong, MOVE_SONG_FAILURE, DELETE_SONG_FAILURE } from '../actions/player';
 import { Panel } from 'react-bootstrap';
 import Loading from '../components/loading';
 import NowPlaying from './nowplaying';
@@ -16,12 +16,34 @@ class PlaylistControl extends React.Component {
 
   onSortEnd({oldIndex, newIndex}) {
     if (oldIndex != newIndex) {
-      this.props.moveSong(this.props.playlist.id, this.props.playlist.queue[oldIndex].id, newIndex);
+      this.props.moveSong(this.props.playlist.id, this.props.playlist.queue[oldIndex].id, newIndex)
+      .then(actionResponse => {
+        switch (actionResponse.type) {
+          case MOVE_SONG_FAILURE:
+            if (actionResponse.payload.status == 403) {
+              toastr.error("You are not authorized to access that playlist. Please refresh the server list.");
+            } else {
+              toastr.error("Failed to move song. Please try again.");
+            }
+            break;
+        }
+      });
     }
   }
 
   onDelete(songId) {
-    this.props.deleteSong(this.props.playlist.id, songId);
+    this.props.deleteSong(this.props.playlist.id, songId)
+    .then(actionResponse => {
+      switch (actionResponse.type) {
+        case DELETE_SONG_FAILURE:
+          if (actionResponse.payload.status == 403) {
+            toastr.error("You are not authorized to access that playlist. Please refresh the server list.");
+          } else {
+            toastr.error("Failed to delete song. Please try again.");
+          }
+          break;
+      }
+    });
   }
 
   shouldCancelStart(e) {
@@ -42,7 +64,9 @@ class PlaylistControl extends React.Component {
       );
     } else {
       return (
-        'No server selected.'
+        <Panel style={{position: 'relative'}}>
+          No server selected.
+        </Panel>
       );
     }
   }

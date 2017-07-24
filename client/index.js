@@ -4,26 +4,18 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
 
-import ReduxToastr from 'react-redux-toastr'
-import 'react-redux-toastr/src/styles/index.scss';
-
 import App from './containers/app';
 import './style.css';
 
-const store = configureStore();
+const preloadedState = window.__PRELOADED_STATE__;
+delete window.__PRELOADED_STATE__;
+
+const store = configureStore(preloadedState);
 
 render(
   (
     <Provider store={store}>
-      <div>
-        <App />
-        <ReduxToastr
-          timeOut={4000}
-          preventDuplicates
-          position="top-center"
-          transitionIn="fadeIn"
-          transitionOut="fadeOut" />
-      </div>
+      <App />
     </Provider>
   ),
   document.getElementById('main')

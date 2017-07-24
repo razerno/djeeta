@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { toastr } from 'react-redux-toastr'
+import { toastr } from 'react-redux-toastr';
 import { addSong, ADD_SONG_SUCCESS, ADD_SONG_FAILURE } from '../actions/player';
 import { Form, FormControl, Button } from 'react-bootstrap';
 
@@ -30,7 +30,11 @@ class AddLink extends React.Component {
           break;
 
         case ADD_SONG_FAILURE:
-          toastr.error("That isn't a valid youtube video.");
+          if (actionResponse.payload.status == 403) {
+            toastr.error("You are not authorized to access that playlist. Please refresh the server list.");
+          } else {
+            toastr.error("That isn't a valid youtube video.");
+          }
           break;
       }
     });

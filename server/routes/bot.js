@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-const bot_controller = require('../controllers/bot');
+const botController = require('../controllers/bot');
 
-router.get('/commands', bot_controller.commands);
-router.get('/prefix', bot_controller.prefix);
-router.get('/avatar', bot_controller.avatar);
+router.get('/commands', botController.commands);
+router.get('/prefix', botController.prefix);
+router.get('/avatar', botController.avatar);
 
 module.exports = router;
