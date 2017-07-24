@@ -33,7 +33,7 @@ client.on('message', (message) => {
   // Commands to be restricted to botchannel
   if (config.channel && message.channel.name != config.channel) return;
 
-  if (message.content.startsWith(config.prefix)) {
+  if (message.content.startsWith(config.prefix) && message.channel instanceof Discord.TextChannel) {
     let cmdName = message.content.split(' ')[0].slice(config.prefix.length);
     let params = message.content.split(' ').slice(1);
     if (client.commands.has(cmdName)) {
@@ -42,11 +42,32 @@ client.on('message', (message) => {
     }
   }
 
-  if (message.content == config.prefix + 'myid') {
-    message.channel.send(message.author.username + "'s ID is: " + message.author.id);
+  // Private eval command for bot owner only
+  if (message.content.startsWith(config.prefix + "eval")) {
+    if(message.author.id !== config.owner_id) return;
+    const args = message.content.split(" ").slice(1);
+    try {
+      const code = args.join(" ");
+      let evaled = eval(code);
+
+      if (typeof evaled !== "string")
+        evaled = require("util").inspect(evaled);
+
+      message.channel.send(clean(evaled), {code:"xl"});
+    } catch (err) {
+      message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
+    }
   }
 
 });
+
+// Clean function to remove mentions using a zero length character
+const clean = text => {
+  if (typeof(text) === "string")
+    return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
+  else
+      return text;
+}
 
 client.on('error', (err) => {
   console.log('Client error event: ' + err);
