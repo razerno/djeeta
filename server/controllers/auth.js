@@ -9,7 +9,7 @@ exports.token = (req, res) => {
   const code = req.query.code;
   const options = {
     code: req.query.code,
-    redirect_uri: 'http://localhost:3000/auth/token',
+    redirect_uri: bot.config.redirect_uri,
   }
 
   auth.oauth2.authorizationCode.getToken(options)

@@ -14,7 +14,7 @@ export const oauth2 = require('simple-oauth2').create({
 });
 
 export const authorizationUri = oauth2.authorizationCode.authorizeURL({
-  redirect_uri: 'http://localhost:3000/auth/token',
+  redirect_uri: bot.config.redirect_uri,
   scope: 'identify',
   state: '3(#0/!~',
 });
