@@ -28,6 +28,15 @@ app.use(cookieSession({
   maxAge: 60 * 24 * 60 * 60 * 1000 // 60 days
 }));
 
+// Configure express to use gzipped files in production
+if (process.env.NODE_ENV == 'production') {
+  app.get('*.js', function (req, res, next) {
+    req.url = req.url + '.gz';
+    res.set('Content-Encoding', 'gzip');
+    next();
+  });
+}
+
 // Expose static site and register api routes
 app.use(express.static(path.join(__dirname, '../public')));
 

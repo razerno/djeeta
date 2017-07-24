@@ -2,7 +2,7 @@
   "name": "djeeta",
   "version": "1.0.0",
   "description": "A simple Discord chatbot.",
-  "main": "app.js",
+  "main": "build/djeeta.js",
   "dependencies": {
     "array.prototype.move": "0.0.4",
     "babel-polyfill": "^6.23.0",
@@ -37,6 +37,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "babel-register": "^6.24.1",
+    "compression-webpack-plugin": "^1.0.0",
     "css-loader": "^0.28.4",
     "css-modules-require-hook": "^4.0.6",
     "node-sass": "^4.5.3",
@@ -46,8 +47,9 @@
     "webpack-node-externals": "^1.6.0"
   },
   "scripts": {
-    "build": "webpack --config webpack.config.js",
-    "start": "node djeeta.js"
+    "build-dev": "webpack --config webpack.config.js",
+    "build": "webpack -p --config webpack.config.prod.js",
+    "start": "node build/djeeta.js"
   },
   "repository": {
     "type": "git",
