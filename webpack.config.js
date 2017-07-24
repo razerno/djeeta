@@ -1,11 +1,7 @@
 const path = require('path');
+const nodeExternals = require('webpack-node-externals');
 
-const config = {
-  entry: './client/index.js',
-  output: {
-    path: path.resolve(__dirname, 'public/dist'),
-    filename: 'bundle.js'
-  },
+const common = {
   module: {
     rules: [
       {test: /\.(js|jsx)$/, use: 'babel-loader', exclude: /node_modules/},
@@ -15,4 +11,28 @@ const config = {
   }
 };
 
-module.exports = config;
+const client = {
+  entry: './client/index.js',
+  output: {
+    path: path.resolve(__dirname, 'public/dist'),
+    filename: 'bundle.js'
+  }
+};
+
+const server = {
+  entry: ["babel-polyfill", "./server/djeeta.js"],
+  output: {
+    path: path.resolve(__dirname, 'build'),
+    filename: 'djeeta.js'
+  },
+  target: 'node',
+  externals: [nodeExternals()],
+  node: {
+    __dirname: true
+  }
+}
+
+module.exports = [
+  Object.assign({}, common, client),
+  Object.assign({}, common, server)
+];

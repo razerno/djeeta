@@ -1,7 +1,7 @@
 'use strict';
 const ytdl = require('ytdl-core');
 const streamOptions = { seek: 0, volume: 1 };
-const socket = require('../../sio');
+const socket = require('../sio');
 
 class Player {
   constructor(client, model) {

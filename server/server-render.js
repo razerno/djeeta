@@ -1,12 +1,12 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import rootReducer from './client/reducers';
-import App from './client/containers/app';
+import rootReducer from '../client/reducers';
+import App from '../client/containers/app';
 import { renderToString } from 'react-dom/server';
 import serialize from 'serialize-javascript';
-const bot = require('./server/discord/bot');
-const authUtil = require('./server/utils/auth');
+const bot = require('./discord/bot');
+const authUtil = require('./utils/auth');
 
 export async function handleRender(req, res) {
   const hasAuthToken = req.session.token != undefined;

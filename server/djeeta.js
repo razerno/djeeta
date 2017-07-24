@@ -9,13 +9,13 @@ const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const app = express();
 const path = require('path');
-const bot = require('./server/discord/bot');
+const bot = require('./discord/bot');
 const serverRender = require('./server-render');
 
 // Include routes
-const playerRoute = require('./server/routes/player');
-const botRoute = require('./server/routes/bot');
-const authRoute = require('./server/routes/auth');
+const playerRoute = require('./routes/player');
+const botRoute = require('./routes/bot');
+const authRoute = require('./routes/auth');
 
 // Configure express to user body-parser
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -29,7 +29,7 @@ app.use(cookieSession({
 }));
 
 // Expose static site and register api routes
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '../public')));
 
 app.use('/player', playerRoute);
 app.use('/bot', botRoute);

@@ -7,6 +7,7 @@ const Player = require('./player');
 
 const config = require('./config');
 const fs = require('fs');
+const path = require('path');
 
 
 client.on('ready', () => {
@@ -16,7 +17,7 @@ client.on('ready', () => {
 client.player = new Player(client, require('../models/player'));
 client.commands = new Discord.Collection();
 
-fs.readdir('./server/discord/commands/', (err, files) => {
+fs.readdir(path.join(__dirname, 'commands/'), (err, files) => {
   if (err) console.error(err);
   console.log(`Loading ${files.length} commands.`);
   files.forEach(f => {
